@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
@@ -33,6 +34,11 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        if(Auth::check()) {
+            return view('categories.create');
+        }
+
+        return view('auth.login');
     }
 
     /**
@@ -43,18 +49,46 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        if (Auth::check()) {
+            if ($request['submit'] == NULL) {
+                return redirect('catagories');
+            } else if ($request['submit'] == 'add') {
+                $data = DB::table('categories')->insertGetId([
+                    'name' => $request['name'],
+                    'description' => $request['description'],
+                    'user_id' => Auth::user()->id
+                ]);
+
+                if ($data) {
+                    return redirect("/categories/$data")
+                        ->with('success', 'New Category Added Successfully!')
+                    ;
+                } else {
+
+                    return back()->withInput()->with('error', "Unsuccessful Entry");
+                }
+            } else {
+
+                return back()->withInput()->with('error', "Unsuccessful Entry");
+            }
+        }
+
+        return view('auth.login');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category)
     {
         //
+        $categories = Category::where('id', $category)->first();
+        $products = Category::find($category)->getProducts;
+
+        return view('categories.show', ['category' => $categories, 'products' => $products]);
     }
 
     /**

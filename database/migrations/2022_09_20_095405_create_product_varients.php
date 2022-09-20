@@ -18,9 +18,8 @@ return new class extends Migration
             $table->longText('name')->nullable();
             $table->string('sap_product_code')->nullable();
             $table->string('web_product_code')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
 
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->nullable();
             $table->foreignId('product_id')->constrained('products');
             $table->timestamps();
         });

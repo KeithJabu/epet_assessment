@@ -5,9 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use \Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProductsImport;
 
 class ProductController extends Controller
 {
+    /**
+     * Import products records from the spreadsheet
+     *
+     */
+    public function import()
+    {
+        \Excel::import(new ProductsImport, 'users.xlsx');
+
+        return redirect('/')->with('success', 'All good!');
+    }
+
     /**
      * Display a listing of the resource.
      *

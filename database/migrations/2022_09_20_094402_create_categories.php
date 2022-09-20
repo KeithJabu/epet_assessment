@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('meta_title')->nullable();
             $table->longText('meta_description')->nullable();
             $table->longText('meta_keywords')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
 
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

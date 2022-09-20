@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -60,7 +61,7 @@ class CategoryController extends Controller
                 ]);
 
                 if ($data) {
-                    return redirect("/categories/$data")
+                    return redirect("/category/$data")
                         ->with('success', 'New Category Added Successfully!')
                     ;
                 } else {
@@ -97,9 +98,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
-        //
+        if (Auth::check()) {
+            $category = Category::where('id', $category)->first();
+
+            return view('categories.edit', [ 'category' => $category]);
+        }
+
+        return view('auth.login');
     }
 
     /**

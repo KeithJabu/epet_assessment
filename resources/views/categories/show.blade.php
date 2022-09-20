@@ -31,7 +31,7 @@
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Add to Basket</button>
                                         </div>
                                         <small class="text-muted">
-                                            <a href="/categories/{{ $product['category_id'] }}">
+                                            <a href="/category/{{ $product['category_id'] }}">
                                                 {{ $category['name'] }}
                                             </a>
                                         </small>

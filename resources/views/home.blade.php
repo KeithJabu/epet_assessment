@@ -15,6 +15,14 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    </br>
+                    </br>
+                    <h3> Lets Begin </h3>
+                    </br>
+                    <a href='/category'> View All Categories </a>
+                    </br>
+                    <a href='/products'> View Products Categories </a>
                 </div>
             </div>
         </div>

@@ -18,17 +18,19 @@ class Product extends Model
         'user_id',
     ];
 
-
     public function user() {
         return $this->belongsTo(User::class, "user_id");
     }
 
     public function categories() {
-        return $this->belongsToMany(
-            Category::class,
-            'category_product',
-            'category_id',
-            'product_id'
-        );
+        return $this->
+            belongsToMany(
+                Category::class,
+                'category_product',
+                'category_id',
+                'product_id')
+            ->withTimestamps()
+            ->as('products_in_categories');
+
     }
 }

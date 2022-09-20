@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('category_product', function (BluePrint $table) {
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('product_id')->constrained('products');
+            $table->timestamps();
         });
     }
 

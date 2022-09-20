@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductVariant;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -31,6 +33,9 @@ class Product extends Model
                 'product_id')
             ->withTimestamps()
             ->as('products_in_categories');
+    }
 
+    public function getProductVariant() {
+        return $this->hasMany(ProductVariant::class, 'product_id');
     }
 }

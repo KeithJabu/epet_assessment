@@ -24,7 +24,7 @@
                                 <div class="card-body">
                                     <p class="card-text">{{ ucfirst($product["name"]) }}</p>
 
-                                    <p class="card-text pull-right"><b>GBP</b>{{ number_format($product["price"], 2, ',', ' ') }}</p>
+                                    <p class="card-text pull-right"><b>ZAR</b>{{ number_format($product["price"], 2, ',', ' ') }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-secondary"><a href="/products/{{ $product["id"] }}"> View </button>

@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::where('id', $category)->first();
-        $products = Category::find($category)->getProducts;
+        $products   = Category::find($category)->getProducts;
 
         return view('categories.show', ['category' => $categories, 'products' => $products]);
     }

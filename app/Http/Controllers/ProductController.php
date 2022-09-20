@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\ProductVariant;
 
 class ProductController extends Controller
 {
@@ -45,12 +47,21 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Product $product)
+    public function show($product)
     {
-        //
+        $product_item     = Product::where('id', $product)->first();
+        $product_variants = Product::find($product)->getProductVariant;
+
+        return view(
+            'products.show',
+            [
+                'product_item'     => $product_item,
+                'product_variants' => $product_variants,
+            ]
+        );
     }
 
     /**

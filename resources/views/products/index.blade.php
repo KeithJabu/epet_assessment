@@ -17,30 +17,30 @@
         <div class="container">
             <h1> Shop </h1>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                @foreach ($products as $product_child)
+                @foreach ($products as $product_item)
                     <div class="col">
                         <div class="card shadow-sm">
                             <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
                             <div class="card-body">
-                                <p class="card-text">{{ ucfirst($product_child["name"]) }}</p>
+                                <p class="card-text">{{ ucfirst($product_item["name"]) }}</p>
 
-                                <p class="card-text pull-right"><b>£ </b>{{ number_format($product_child["price"], 2, ',', ' ') }}</p>
+                                <p class="card-text pull-right"><b>£ </b>{{ number_format($product_item["price"], 2, ',', ' ') }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         @if (!Auth::check())
                                             <button type="button" class="btn btn-sm btn-outline-secondary">
-                                                <a href="/products/{{ $product_child["id"] }}"> View
+                                                <a href="/products/{{ $product_item["id"] }}"> View
                                             </button>
                                             <button type="button" class="btn btn-sm btn-outline-secondary">
-                                                <a href="orders/add_to_cart/{{ $product_child["id"] }}" >Add to Basket </a>
+                                                <a href="orders/add_to_cart/{{ $product_item["id"] }}" >Add to Basket </a>
                                             </button>
                                         @else
                                             <button type="button" class="btn btn-sm btn-outline-secondary">
-                                                <a href="/products/{{ $product_child["id"] }}"> View
+                                                <a href="/products/{{ $product_item["id"] }}"> View
                                             </button>
                                             <button type="button" class="btn btn-sm btn-outline-warning">
-                                                <a href="/products/edit/{{ $product_child["id"] }}"> Edit
+                                                <a href="/products/edit/{{ $product_item["id"] }}"> Edit
                                             </button>
                                             <button type="button" class="btn btn-sm btn-outline-danger">
                                                 <a
@@ -56,15 +56,15 @@
                                         @endif
                                     </div>
 
-                                    <form id="delete-form" action="products/destroy/{{ $product_child["id"] }}" method="POST" style="display: none">
+                                    <form id="delete-form" action="products/destroy/{{ $product_item["id"] }}" method="POST" style="display: none">
                                         @csrf
-                                        <input type="hidden" name="product" value="{{ $product_child["id"] }}">
+                                        <input type="hidden" name="product" value="{{ $product_item["id"] }}">
                                     </form>
 
                                     <small class="text-muted">
-                                        <a href="/categories/{{ $product_child['category_id'] }}">
-                                            {{ ucfirst($product_child->getCategories->name) }}
-                                        </a>
+                                            <a href="/categories/{{ $product_item['category_id'] }}">
+                                                {{ $product_item['category_id'] }}
+                                            </a>
                                     </small>
                                 </div>
                             </div>

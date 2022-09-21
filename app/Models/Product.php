@@ -24,15 +24,11 @@ class Product extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
-    public function getCategories() {
+    public function getCategories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->
-            belongsToMany(
-                Category::class,
-                'category_product',
-                'category_id',
-                'product_id')
-            ->withTimestamps()
-            ->as('products_in_categories');
+            belongsToMany(Category::class)
+            ->withTimestamps();
     }
 
     public function getProductVariant() {

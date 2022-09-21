@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductVariant;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -18,9 +19,10 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::paginate(6);
+        $products   = Product::paginate(15);
+        $categories = Product::find(1);
 
-        return view('products.index', ['products' => $products]);
+        return view('products.index', ['products' => $products, 'categories' => $categories]);
     }
 
     /**
@@ -31,6 +33,13 @@ class ProductController extends Controller
     public function create()
     {
         //
+        if (Auth::check()) {
+            $categories = Category::orderBy('name')->get();
+
+            return view('products.create', ['categories' => $categories]);
+        }
+
+        return view('auth.login');
     }
 
     /**
@@ -41,7 +50,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request['name'];
+        $product->slug = $request['slug'];
+        $product->price = $request['slug'];
+
+        $product->save();
+
+        //$category = Category::find[]
+            //id, name, slug, category_id, user_id,
     }
 
     /**
@@ -70,9 +87,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($product)
     {
-        //
+        if (Auth::check()) {
+            $product    = Product::where('id', $product)->first();
+            $categories = Category::orderBy('name')->get();
+
+            return view('products.edit', [ 'product' => $product, 'categories' => $categories ]);
+        }
+
+        return view('auth.login');
     }
 
     /**

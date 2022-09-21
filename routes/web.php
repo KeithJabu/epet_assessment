@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductVariantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 
@@ -42,3 +43,4 @@ Route::get('products/{id}', [ProductController::class,"show"]);
 Route::get('products/edit/{id}', [ProductController::class,"edit"]);
 Route::post('products/update', [ProductController::class,"update"]);
 
+Route::get('product_variant/{id}', [ProductVariantController::class,"show"]);

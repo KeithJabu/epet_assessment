@@ -106,9 +106,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        //
+        if (Auth::check()) {
+            if ($request['submit'] == NULL) {
+                return redirect('/products');
+            } else if ($request['submit'] == 'Update') {
+                $product = Product::find($request->procduct_id);
+
+                $product->name = $request->name;
+                $product->slug = $request->name;
+
+            }
+        }
     }
 
     /**

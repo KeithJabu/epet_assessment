@@ -134,10 +134,10 @@
 
                     <h2>{{ $category->name}}</h2>
                     <p> {{ $category->description }}</p>
-                    <p><a class="btn btn-secondary" href="/categories/{{ $category->id }}">View details »</a></p>
+                    <p><a class="btn btn-secondary" href="/category/{{ $category->id }}">View details »</a></p>
 
                     @if (Auth::check())
-                        <p><a class="btn btn-warning" href="/categories/edit/{{ $category->id }}">Edit</a></p>
+                        <p><a class="btn btn-warning" href="/category/edit/{{ $category->id }}">Edit</a></p>
                         <p><a class="btn btn-danger"
                             href="#" onclick="
                                 var result = confirm('This will remove the Category and its Products?')
@@ -155,7 +155,7 @@
                     @endif
                 </div>
 
-                <form id="delete-form" action="categories/destroy/{{ $category->id }}" method="POST" style="display: none">
+                <form id="delete-form" action="category/destroy/{{ $category->id }}" method="POST" style="display: none">
                     @csrf
                     <input type="hidden" name="category" value="{{ $category->id }}">
                 </form>

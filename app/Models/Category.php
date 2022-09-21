@@ -24,7 +24,7 @@ class Category extends Model
     } */
 
     public function getProducts() {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public function user() {

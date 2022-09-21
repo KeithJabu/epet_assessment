@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('category_product', function (BluePrint $table) {
+            $table->increments('id');
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('product_id')->constrained('products');
             $table->timestamps();

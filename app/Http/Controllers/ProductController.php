@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use \Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ProductsImport;
+use App\Models\ProductVariant;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -29,6 +32,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products   = Product::paginate(15);
+        $categories = Product::find(1);
+
+        return view('products.index', ['products' => $products, 'categories' => $categories]);
     }
 
     /**
@@ -39,6 +46,13 @@ class ProductController extends Controller
     public function create()
     {
         //
+        if (Auth::check()) {
+            $categories = Category::orderBy('name')->get();
+
+            return view('products.create', ['categories' => $categories]);
+        }
+
+        return view('auth.login');
     }
 
     /**
@@ -55,12 +69,21 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Product $product)
+    public function show($product)
     {
-        //
+        $product_item     = Product::where('id', $product)->first();
+        $product_variants = Product::find($product)->getProductVariant;
+
+        return view(
+            'products.show',
+            [
+                'product_item'     => $product_item,
+                'product_variants' => $product_variants,
+            ]
+        );
     }
 
     /**
@@ -69,9 +92,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($product)
     {
-        //
+        if (Auth::check()) {
+            $product    = Product::where('id', $product)->first();
+            $categories = Category::orderBy('name')->get();
+
+            return view('products.edit', [ 'product' => $product, 'categories' => $categories ]);
+        }
+
+        return view('auth.login');
     }
 
     /**
@@ -81,9 +111,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
-        //
+        if (Auth::check()) {
+            if ($request['submit'] == NULL) {
+                return redirect('/products');
+            } else if ($request['submit'] == 'Update') {
+                $product = Product::find($request->procduct_id);
+
+                $product->name = $request->name;
+                $product->slug = $request->name;
+
+            }
+        }
     }
 
     /**

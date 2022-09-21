@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductVariant;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -22,15 +24,14 @@ class Product extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
-    public function categories() {
+    public function getCategories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->
-            belongsToMany(
-                Category::class,
-                'category_product',
-                'category_id',
-                'product_id')
-            ->withTimestamps()
-            ->as('products_in_categories');
+            belongsToMany(Category::class)
+            ->withTimestamps();
+    }
 
+    public function getProductVariant() {
+        return $this->hasMany(ProductVariant::class, 'product_id');
     }
 }

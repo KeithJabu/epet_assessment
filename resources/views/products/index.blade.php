@@ -13,6 +13,7 @@
         p { /*display: inline;*/ }
     </style>
 
+
     <div class="album py-5 bg-light">
         <div class="container">
             <h1> Shop </h1>
@@ -62,9 +63,10 @@
                                     </form>
 
                                     <small class="text-muted">
-                                            <a href="/categories/{{ $product_item['category_id'] }}">
-                                                {{ $product_item['category_id'] }}
-                                            </a>
+
+                                        @foreach($product_item->getCategories as $category)
+                                            <a class="text-dark" href="#"> {{ $category->name }}</a>
+                                        @endforeach
                                     </small>
                                 </div>
                             </div>

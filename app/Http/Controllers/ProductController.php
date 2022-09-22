@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         //
         if (Auth::check()) {
-            $categories = Category::orderBy('name')->get();
+            $categories = Category::orderBy('name', 'desc')->get();
 
             //return view('products.create', ['categories' => $categories]);
             return view('products.create', compact('categories'));

@@ -59,7 +59,7 @@
                         <p class="price">
                             <span class="product-Price-amount amount">
                                 <bdi>
-                                    <input type="text" class="form-control" name="price" value="{{ $product["slug"] }}">
+                                    <input type="text" class="form-control" name="slug" value="{{ $product["slug"] }}">
                                 </bdi>
                             </span>
                         </p>

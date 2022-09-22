@@ -37,11 +37,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
         if (Auth::check()) {
             $categories = Category::orderBy('name', 'desc')->get();
 
-            //return view('products.create', ['categories' => $categories]);
             return view('products.create', compact('categories'));
         }
 
@@ -96,19 +94,9 @@ class ProductController extends Controller
      */
     public function show(int $product)
     {
-
-
-        ///$product_item     = Product::where('id', $product)->first();
         $product_item     = Product::with('getCategories')->find($product);
         $product_variants = Product::find($product)->getProductVariant;
 
-        /*return view(
-            'products.show',
-            [
-                'product_item'     => $product_item,
-                'product_variants' => $product_variants,
-            ]
-        ); */
         return view(
             'products.show', compact('product_item', 'product_variants'));
     }
@@ -136,24 +124,37 @@ class ProductController extends Controller
      *
      * @param \Request $request
      * @param Product $product
-     * @return Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(\Request $request, Product $product)
+    public function update(Request $request)
     {
 
-        var_dump($request);
-        die();
         if (Auth::check()) {
             if ($request['submit'] == NULL) {
                 return redirect('/products');
             } else if ($request['submit'] == 'Update') {
-                $product = Product::find($request->procduct_id);
 
-                $product->name = $request->name;
-                $product->slug = $request->slug;
+                $category_ids = $request->post('category');
 
+                $product = Product::find($request->post('product_id'));
+                $product->name = $request->input('name');
+                $product->slug = $request->input('slug');
+                $product->getCategories()->sync($category_ids);
+                $product->update();
+
+
+                return redirect("/products/" . $request->post('product_id'))
+                    ->with('success', 'New Product Added Successfully!');
+
+            } else {
+                return back()->withInput()->with('error', "Unsuccessful Entry");
             }
+        } else {
+
+            return back()->withInput()->with('error', "Unsuccessful Entry");
         }
+
+        return view('auth.login');
     }
 
     /**

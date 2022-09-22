@@ -134,11 +134,11 @@ class CategoryController extends Controller
                 $category->update();
 
                 if ($category) {
-                $id = intval($category['id']);
+                    $id = intval($category['id']);
 
-                return redirect("/products/$id")
-                    ->with('success', 'Product updated Successfully!');
-            } else {
+                    return redirect("/products/$id")
+                        ->with('success', 'Product updated Successfully!');
+                } else {
                     return back()->withInput();
                 }
             } else {

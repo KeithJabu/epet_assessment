@@ -26,7 +26,7 @@
 
         .form-control {
             background: #fff !important;
-        }`
+        }
     </style>
 
     <section class="container">
@@ -67,7 +67,7 @@
                         <div class="product_meta">
                             <label> Categories:</label>
                             <p>
-                                <select name="category_id"  class="form-select form-select-lg mb-3">
+                                <select name="category[]"  class="form-select form-select-lg mb-3 selectpicker" multiple="multiple" data-live-search="true">
                                     <option>Select Product</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category["id"] }}" {{ ( $category['id'] == $product['category_id']) ? 'selected' : '' }}>

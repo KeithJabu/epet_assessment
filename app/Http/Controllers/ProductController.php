@@ -7,6 +7,11 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductVariant;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -49,34 +54,49 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store(Request $request)
     {
+
         if (Auth::check()) {
             if ($request['submit'] == NULL) {
-                return redirect('/category');
+                return redirect('/products');
             } else if ($request['submit'] == 'add') {
                 $product = new Product();
-            }
-            $product = new Product();
-            $product->name = $request['name'];
-            $product->slug = $request['slug'];
-            $product->price = $request['slug'];
+                $product->name = $request->input('name');
+                $product->slug = $request->input('slug');
 
-            $product->save();
+                $product->save();
+                $product->id;
+
+                if ($product->id) {
+                    $category_ids = $request->post('category');
+                    $product->getCategories()->sync($category_ids);
+
+                    return redirect("/product")
+                        ->with('success', 'New Product Added Successfully!')
+                        ;
+                } else {
+
+                    return back()->withInput()->with('error', "Unsuccessful Entry");
+                }
+            } else {
+
+                return back()->withInput()->with('error', "Unsuccessful Entry");
+            }
         }
 
-        //$category = Category::find[]
-            //id, name, slug, category_id, user_id,
+        return view('auth.login');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param int $product
+     * @return Application|Factory|View
      */
-    public function show($product)
+    public function show(int $product)
     {
+
         $product_item     = Product::where('id', $product)->first();
         $product_variants = Product::find($product)->getProductVariant;
 
@@ -92,10 +112,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param int $product
+     * @return Response
      */
-    public function edit($product)
+    public function edit(int $product)
     {
         if (Auth::check()) {
             $product    = Product::where('id', $product)->first();
@@ -110,12 +130,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProductRequest  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \Request $request
+     * @param Product $product
+     * @return Response
      */
-    public function update(Request $request, Product $product)
+    public function update(\Request $request, Product $product)
     {
+
+        var_dump($request);
+        die();
         if (Auth::check()) {
             if ($request['submit'] == NULL) {
                 return redirect('/products');

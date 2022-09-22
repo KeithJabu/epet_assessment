@@ -45,6 +45,11 @@ class CategoryController extends Controller
     }
 
 
+    /**
+     *
+     * @param Request $request
+     *
+     */
     public function store(Request $request)
     {
         if (Auth::check()) {

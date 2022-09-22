@@ -17,17 +17,17 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('category');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/category', [CategoryController::class, 'index']);
+Route::get('/', [CategoryController::class, 'index']);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/category', [CategoryController::class,"index"] );
+Route::get('/', [CategoryController::class,"index"] );
 Route::get('/category/create', [CategoryController::class,"create"]);
 Route::get('/category/{id}', [CategoryController::class,"show"]);
 Route::get('/category/edit/{id}', [CategoryController::class,"edit"]);
@@ -36,11 +36,11 @@ Route::post('/category/post', [CategoryController::class,"post"]);
 Route::post('/category/destroy/{id}', [CategoryController::class,"destroy"]);
 Route::post('/category/store', [CategoryController::class,"store"]);
 
-Route::get('/', [ProductController::class,"index"]);
-Route::get('products', [ProductController::class,"index"]);
-Route::get('products/create', [ProductController::class,"create"]);
-Route::get('products/{id}', [ProductController::class,"show"]);
-Route::get('products/edit/{id}', [ProductController::class,"edit"]);
-Route::post('products/update', [ProductController::class,"update"]);
+Route::get('/products', [ProductController::class,"index"]);
+Route::get('/products/create', [ProductController::class,"create"]);
+Route::get('/products/{id}', [ProductController::class,"show"]);
+Route::get('/products/edit/{id}', [ProductController::class,"edit"]);
+Route::post('/products/update', [ProductController::class,"update"]);
+Route::post('/products/store', [ProductController::class,"store"]);;
 
 Route::get('product_variant/{id}', [ProductVariantController::class,"show"]);

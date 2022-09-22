@@ -112,7 +112,7 @@
                         @if (Auth::check())
                             <p><a class="btn btn-lg btn-primary" href="/category/create">Create New Category</a></p>
                         @else
-                            <p><a class="btn btn-lg btn-primary" href="#">Browse Product Shop</a></p>
+                            <p><a class="btn btn-lg btn-primary" href="/products/">Browse Product Shop</a></p>
                         @endif
                     </div>
                 </div>

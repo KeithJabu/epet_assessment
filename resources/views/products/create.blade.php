@@ -66,7 +66,7 @@
                         <div class="product_meta">
                             <label> Categories:</label>
                             <p>
-                                <select name="category" id=""  class="form-select form-select-lg mb-3  selectpicker" multiple data-live-search="true">
+                                <select name="category[]"  class="form-select form-select-lg mb-3 selectpicker" multiple="multiple" data-live-search="true">
                                     <option>Select Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category["id"] }}" > {{ ucfirst($category['name']) }} </option>

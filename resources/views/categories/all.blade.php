@@ -109,7 +109,11 @@
                     <div class="carousel-caption text-end">
                         <h1>Ultimate shopping experience with Buying What counts .</h1>
                         <p>An endless shopping, shipping and buying made simple</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Browse Product Shop</a></p>
+                        @if (Auth::check())
+                            <p><a class="btn btn-lg btn-primary" href="/category/create">Create New Category</a></p>
+                        @else
+                            <p><a class="btn btn-lg btn-primary" href="#">Browse Product Shop</a></p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -162,6 +166,7 @@
             @endforeach
         </div><!-- /.row -->
         <hr class="featurette-divider">
+
 
         <!-- /END THE FEATURETTES -->
     </div>

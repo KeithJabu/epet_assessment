@@ -48,14 +48,21 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store($request)
     {
-        $product = new Product();
-        $product->name = $request['name'];
-        $product->slug = $request['slug'];
-        $product->price = $request['slug'];
+        if (Auth::check()) {
+            if ($request['submit'] == NULL) {
+                return redirect('/category');
+            } else if ($request['submit'] == 'add') {
+                $product = new Product();
+            }
+            $product = new Product();
+            $product->name = $request['name'];
+            $product->slug = $request['slug'];
+            $product->price = $request['slug'];
 
-        $product->save();
+            $product->save();
+        }
 
         //$category = Category::find[]
             //id, name, slug, category_id, user_id,
@@ -115,7 +122,7 @@ class ProductController extends Controller
                 $product = Product::find($request->procduct_id);
 
                 $product->name = $request->name;
-                $product->slug = $request->name;
+                $product->slug = $request->slug;
 
             }
         }

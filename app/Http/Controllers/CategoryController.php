@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -42,26 +44,24 @@ class CategoryController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCategoryRequest $request)
+
+    public function store(Request $request)
     {
         if (Auth::check()) {
             if ($request['submit'] == NULL) {
-                return redirect('catagories');
+                return redirect('categories');
             } else if ($request['submit'] == 'add') {
                 $data = DB::table('categories')->insertGetId([
-                    'name' => $request['name'],
-                    'description' => $request['description'],
-                    'user_id' => Auth::user()->id
+                    'name'             => $request->input('name'),
+                    'meta_title'       => $request->input('meta_title'),
+                    'meta_description' => $request->input('meta_description'),
+                    'meta_keywords'    => $request->input('meta_title'),
+                    'created_at'       => date('Y-m-d'),
+                    'updated_at'       => date('Y-m-d'),
                 ]);
 
                 if ($data) {
-                    return redirect("/category/$data")
+                    return redirect("/category")
                         ->with('success', 'New Category Added Successfully!')
                     ;
                 } else {
@@ -83,7 +83,7 @@ class CategoryController extends Controller
      * @param  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($category)
+    public static function show($category)
     {
         //
         $categories = Category::where('id', $category)->first();
@@ -109,16 +109,39 @@ class CategoryController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
+
+    public function update(Request $request)
     {
-        //
+
+        if (Auth::check()) {
+            if ($request['submit'] == NULL) {
+                return redirect('categories');
+            } else if ($request['submit'] == 'Update') {
+
+                $category = Category::find($request->category_id);
+
+                $category->name             = $request->input('name');
+                $category->meta_title       = $request->input('meta_title');
+                $category->meta_description = $request->input('meta_description');
+                $category->meta_keywords    = $request->input('meta_title');
+                $category->updated_at       = date('Y-m-d H:m:s');
+
+                $category->update();
+
+                if ($category) {
+                $id = intval($category['id']);
+
+                return redirect("/products/$id")
+                    ->with('success', 'Product updated Successfully!');
+            } else {
+                    return back()->withInput();
+                }
+            } else {
+                return back()->withInput();
+            }
+        }
+
+        return view('auth.login');
     }
 
     /**

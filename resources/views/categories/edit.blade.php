@@ -65,7 +65,7 @@
                         <p class="meta_description">
                             <span class="category-description-amount amount">
                                 <bdi>
-                                    <textarea name="meta_description" class="form-control"> {{ $category["meta_keywords"] }} </textarea>
+                                    <textarea name="meta_keywords" class="form-control"> {{ $category["meta_keywords"] }} </textarea>
                                 </bdi>
                             </span>
                         </p>
@@ -74,7 +74,7 @@
                         <p class="meta_description">
                             <span class="category-description-amount amount">
                                 <bdi>
-                                    <textarea name="meta_description" class="form-control"> {{ $category["meta_title"] }} </textarea>
+                                    <textarea name="meta_title" class="form-control"> {{ $category["meta_title"] }} </textarea>
                                 </bdi>
                             </span>
                         </p>

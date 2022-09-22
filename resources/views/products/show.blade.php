@@ -20,7 +20,11 @@
                     <strong class="d-inline-block mb-2 text-primary"> {{ ucfirst($product_item->name) }}</strong>
                     <h3 class="mb-0">
                         Catergory:
-                        <a class="text-dark" href="#"> {{ $product_item["category_id"] }}</a>
+
+                        @foreach($product_item->getCategories as $category)
+                            <a class="text-dark" href="#"> {{ $category->name }}</a>
+                        @endforeach
+
                     </h3>
                     <div class="mb-1 text-muted">Nov 12</div>
                     <p class="card-text mb-auto"> {{ ucfirst($product_item->slug) }} </p>

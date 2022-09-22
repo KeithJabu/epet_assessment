@@ -97,16 +97,20 @@ class ProductController extends Controller
     public function show(int $product)
     {
 
-        $product_item     = Product::where('id', $product)->first();
+
+        ///$product_item     = Product::where('id', $product)->first();
+        $product_item     = Product::with('getCategories')->find($product);
         $product_variants = Product::find($product)->getProductVariant;
 
-        return view(
+        /*return view(
             'products.show',
             [
                 'product_item'     => $product_item,
                 'product_variants' => $product_variants,
             ]
-        );
+        ); */
+        return view(
+            'products.show', compact('product_item', 'product_variants'));
     }
 
     /**

@@ -36,7 +36,8 @@ class ProductController extends Controller
         if (Auth::check()) {
             $categories = Category::orderBy('name')->get();
 
-            return view('products.create', ['categories' => $categories]);
+            //return view('products.create', ['categories' => $categories]);
+            return view('products.create', compact('categories'));
         }
 
         return view('auth.login');

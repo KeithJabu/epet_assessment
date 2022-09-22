@@ -12,12 +12,11 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <script src="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa1hWNlRVNEVKSHhmQ250eWcwR2t2M0FJRzh2QXxBQ3Jtc0tuVlZFV2tPcm94N0dTNVpsX3M4MFRSdU5OdkZ4a2Ftb0VBV1dodjJwczNxTVhqZGJjalBJUDljRHNpVF9nbEJCSzYtdHl3UFRVdEhPYmNISFVzdWowSlo3SEVTWjkyZWZ2VkoybWJUZFdHNHVUT19pVQ&q=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2Fbootstrap-select%2F1.14.0-beta2%2Fjs%2Fbootstrap-select.min.js&v=AyztNgccjJ8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -82,5 +81,9 @@
             @yield('content')
         </main>
     </div>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </body>
 </html>

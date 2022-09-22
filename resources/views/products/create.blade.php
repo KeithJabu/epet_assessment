@@ -55,12 +55,10 @@
                             <input type="text" class="form-control" name="name" placeholder="Product Name">
                         </p>
 
-                        <label> Selling Price </label>
-                        <p class="price">
-                            <span class="product-Price-amount amount">
+                        <label>Slug </label>
+                        <p class="slug">
                                 <bdi>
-                                    <span class="product-Price-currencySymbol">In {ZAR} R</span>
-                                    <input type="text" class="form-control" name="price" placeholder=" 000 ">
+                                    <input type="text" class="form-control" name="slug" placeholder=" Enter slug text  ">
                                 </bdi>
                             </span>
                         </p>
@@ -68,7 +66,7 @@
                         <div class="product_meta">
                             <label> Categories:</label>
                             <p>
-                                <select name="category_id" id=""  class="selectpicker form-select form-select-lg mb-3">
+                                <select name="category" id=""  class="form-select form-select-lg mb-3  selectpicker" multiple data-live-search="true">
                                     <option>Select Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category["id"] }}" > {{ ucfirst($category['name']) }} </option>

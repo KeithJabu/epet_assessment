@@ -55,12 +55,11 @@
                             <input type="text" class="form-control" name="name" value="{{ ucfirst($product['name']) }}">
                         </p>
 
-                        <label> Selling Price </label>
+                        <label> Slug </label>
                         <p class="price">
                             <span class="product-Price-amount amount">
                                 <bdi>
-                                    <span class="product-Price-currencySymbol">In {ZAR} R</span>
-                                    <input type="text" class="form-control" name="price" value="{{ $product["price"] }}">
+                                    <input type="text" class="form-control" name="price" value="{{ $product["slug"] }}">
                                 </bdi>
                             </span>
                         </p>
